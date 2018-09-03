@@ -46,7 +46,6 @@ const request = (endpoint, query = null, options = {}) => {
 };
 
 const getCountryCode = ip => {
-    console.log(ip);
     return request(`${process.env.IPSTACK_URI}/${ip}`, { 
         access_key: process.env.IPSTACK_KEY,
         fields: "country_code",
