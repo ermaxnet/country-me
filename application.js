@@ -18,6 +18,7 @@ if(APPLICATION_ENVIRONMENT === "development") {
 
 app.use(express.static(path.resolve(__dirname, "public")));
 
+app.set("trust proxy", true);
 app.set("views", path.resolve(__dirname, "public"));
 app.set("view engine", "pug");
 
