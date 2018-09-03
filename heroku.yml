@@ -1,6 +1,11 @@
 build:
   languages:
-    - ruby
+    - node_js
+  post:
+    - npm run build
+  config:
+    APPLICATION_ENVIRONMENT: production
+    PORT: 80
 
 run:
   web: npm start
