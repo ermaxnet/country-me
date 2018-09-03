@@ -1,3 +1,7 @@
+setup:
+  addons:
+    - plan: Sandbox
+
 build:
   languages:
     - node_js

@@ -6,7 +6,7 @@ const {
 } = require("./database");
 const { request } = require("./functions");
 
-mongooseConnect(process.env.MONGOLAB_URI)
+mongooseConnect(process.env.MONGODB_URI)
     .then(() => {
         return collectionExists("countries");
     })
