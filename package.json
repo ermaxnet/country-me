@@ -7,7 +7,7 @@
     "build-dev": "webpack-cli --mode development",
     "start-dev": "APPLICATION_ENVIRONMENT=development node server.js",
     "development": "run-s build-dev start-dev",
-    "build": "webpack-cli --mode production",
+    "postinstall": "webpack-cli --mode production",
     "start": "node server.js"
   },
   "keywords": [
