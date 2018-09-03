@@ -15,7 +15,7 @@ mongooseConnect(process.env.MONGODB_URI)
             return Promise.resolve();
         }
         return request("https://restcountries.eu/rest/v2/all", { 
-            fields: "name;capital;region;subregion;population;area;flag;regionalBlocs;latlng" 
+            fields: "name;capital;region;subregion;population;area;flag;regionalBlocs;latlng;alpha2Code;alpha3Code" 
         }).then(countries => {
             return Country.insertMany(countries);
         });

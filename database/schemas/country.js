@@ -4,6 +4,14 @@ const CountrySchema = new Schema({
     capital: String,
     region: String,
     subregion: String,
+    alpha2Code: {
+        type: String,
+        alias: "country2"
+    },
+    alpha3Code: {
+        type: String,
+        alias: "country3"
+    },
     population: {
         type: Number,
         default: 0
