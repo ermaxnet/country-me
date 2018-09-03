@@ -4,11 +4,11 @@
   "description": "Приложение для просмотра актуальной информации по стране посетителя, или по запросу конкретной страны. Так же приложение открывает API для получения информации о случайной стране",
   "main": "application.js",
   "scripts": {
-    "build": "webpack-cli --mode development",
-    "start": "APPLICATION_ENVIRONMENT=development node server.js",
-    "build-production": "webpack-cli --mode production",
-    "start-production": "APPLICATION_ENVIRONMENT=production PORT=80 node server.js",
-    "deploy": "run-s build-production start-production"
+    "build-dev": "webpack-cli --mode development",
+    "start-dev": "APPLICATION_ENVIRONMENT=development node server.js",
+    "development": "run-s build-dev start-dev",
+    "build": "webpack-cli --mode production",
+    "start": "node server.js"
   },
   "keywords": [
     "restcountries",
@@ -49,5 +49,8 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.2.0",
     "webpack-hot-middleware": "^2.23.1"
+  },
+  "engines": {
+    "node": "10.8.0"
   }
 }
