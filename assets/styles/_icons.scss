@@ -1,0 +1,16 @@
+.icon {
+    display: inline-block;
+    opacity: .5;
+    transition: opacity $transition $transition-ease;
+    background-repeat: no-repeat;
+    background-position: left center;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &-search {
+        background-image: url("~icons/searching.svg");
+        background-size: 100%;
+    }
+}

@@ -13,7 +13,7 @@ body {
 
     .container {
         position: relative;
-        padding: 55px 15px;
+        padding: 56px 0;
         width: $width; min-height: 0;
         margin: 0 auto;
 
@@ -21,4 +21,42 @@ body {
             width: $width-1;
         }
     }
+}
+
+.page-header {
+    position: absolute;
+    width: 100%;
+    backface-visibility: hidden;
+    left: 0; right: 0; top: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    z-index: 1000;
+    @include clearfix;
+
+    &-container {
+        position: relative;
+        width: 100%;
+        background-color: $h-bg-color;
+        border-bottom: 1px solid rgba(0, 0, 0, .25);
+    }
+
+    .container {
+        position: relative;
+        width: $width; height: $h-height;
+        margin: 0 auto;
+
+        @include media-desktop-up {
+            width: $width-1;
+        }
+    }
+
+    .logo {
+        width: 204px; height: 36px;
+        background-size: 204px 36px;
+        float: left;
+        margin-top: 10px;
+    }
+}
+
+.logo {
+    background-image: url("~logo.svg");
 }

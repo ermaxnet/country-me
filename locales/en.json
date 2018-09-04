@@ -3,7 +3,8 @@
         "translation": {
             "title": "Country Me",
             "title-404": "Country Me: Not Found",
-            "title-500": "Country Me: Fatal Error"
+            "title-500": "Country Me: Fatal Error",
+            "search_placeholder": "Search on CountryMe"
         }
     }
 }

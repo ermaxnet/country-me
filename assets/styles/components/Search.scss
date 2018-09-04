@@ -1,3 +1,43 @@
+@import "../theme";
+
 .Search {
-    background-image: url("~icons/searching.svg");
+    height: $h-height;
+    float: right;
+    text-align: left;
+
+    &__form {
+        position: relative;
+        width: $sch-width; height: $sch-height;
+        float: left;
+        margin-top: 10px;
+    }
+
+    &__input {
+        display: block;
+        width: 100%; height: $sch-height;
+        box-sizing: border-box;
+        border-radius: 21px;
+        border: 1px solid $sch-border-color;
+        background-color: $sch-bg-color;
+        font-size: 12px;
+        padding: 0 36px 0 12px;
+        outline: none!important;
+        line-height: calc(#{$sch-height} - 2px);
+        transition: all $transition $transition-ease;
+
+        &:focus {
+            border: 2px solid $sch-border-color-1;
+            background-color: $sch-bg-color-1;
+            line-height: calc(#{$sch-height} - 4px);
+        }
+    }
+
+    .icon {
+        position: absolute;
+        width: 36px; height: 36px;
+        top: 0; right: 0;
+        cursor: pointer;
+        background-size: 20px 20px;
+        background-position-x: 5px;
+    }
 }
