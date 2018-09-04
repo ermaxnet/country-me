@@ -1,5 +1,8 @@
-@import "~normalize.css";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 
-body {
-    background-color: white;
-}
+@import "~normalize.css";
+@import "theme";
+@import "mixins";
+
+@import "layout";
+@import "typography";

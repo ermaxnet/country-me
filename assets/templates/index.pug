@@ -4,7 +4,12 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        <% for (var link of htmlWebpackPlugin.options.links) { %>
+        link(<% for (var attr in link) { %><%= attr %>="<%= link[attr] %>" <% } %>)<% } %>
+
         title #{title}
     body
-        img(src=`${country.flag}` alt=`${country.name}`)
-        span #{country.name}
+        header.page-header
+            div.logo
+        div.page
+            main.container

@@ -50,7 +50,9 @@ const getCountryCode = ip => {
         access_key: process.env.IPSTACK_KEY,
         fields: "country_code",
         output: "json"
-    });
+    }).then(({ country_code }) => 
+        Promise.resolve(country_code)
+    );
 };
 
 module.exports = {

@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPugPlugin = require("html-webpack-pug-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MinCssExtractPlugins = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ImageMinWebpackPlugin = require("imagemin-webpack-plugin").default;
 
 const url_loader = {
     loader: "url-loader",
@@ -108,6 +110,13 @@ module.exports = {
                                 }
                             }
                         ]
+                    },
+                    {
+                        loader: "file-loader",
+                        exclude: [ /\.js$/, /\.html$/, /\.json$/, /\.pug$/ ],
+                        options: {
+                          name: "media/[name].[ext]",
+                        },
                     }
                 ]
             }
@@ -115,6 +124,25 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(path.resolve(__dirname, "public")),
+        new CopyWebpackPlugin([
+            { from: "assets/images/favicon.ico", to: "media/favicon.ico" },
+            { from: "assets/images/favicon.svg", to: "media/favicon.svg" },
+            { from: "assets/images/apple-touch-icon.png", to: "media/apple-touch-icon.png" }
+        ]),
+        new ImageMinWebpackPlugin({
+            test: /\.svg$/,
+            svgo: {
+                plugins: [
+                    { removeTitle: true }
+                ]
+            }
+        }),
+        new ImageMinWebpackPlugin({
+            test: /\.png$/,
+            optipng: {
+                optimizationLevel: 9
+            }
+        }),
         new MinCssExtractPlugins({
             filename: "css/[name].css"
         }),
@@ -122,7 +150,35 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: "index.pug",
             template: "./assets/templates/index.pug",
-            hash: true
+            hash: true,
+            links: [
+                {
+                    rel: "mask-icon",
+                    sizes: "any",
+                    href: "/media/favicon.svg",
+                    color: "#1da1f2"
+                },
+                {
+                    rel: "shortcut icon",
+                    href: "/media/favicon.ico",
+                    type: "image/x-icon"
+                },
+                {
+                    rel: "apple-touch-icon",
+                    href: "/media/apple-touch-icon.png",
+                    sizes: "180x180"
+                }
+            ]
+        }),
+        new HtmlWebpackPlugin({
+            filename: "error500.pug",
+            template: "./assets/templates/error500.pug",
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: "error404.pug",
+            template: "./assets/templates/error404.pug",
+            inject: false
         }),
         new HtmlWebpackPugPlugin(),
         new webpack.HotModuleReplacementPlugin()
