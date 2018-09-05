@@ -4,7 +4,14 @@
             "title": "Country Me",
             "title-404": "Country Me: Not Found",
             "title-500": "Country Me: Fatal Error",
-            "search_placeholder": "Search on CountryMe"
+            "search_placeholder": "Search on CountryMe",
+            "short_info": {
+                "region": "Region",
+                "population": "Population",
+                "area": "Area",
+                "blocs": "Regional Blocs",
+                "coordinates": "Coordinates"
+            }
         }
     }
 }

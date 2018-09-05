@@ -1,4 +1,5 @@
 @import "../theme";
+@import "~bourbon/core/bourbon";
 
 .Search {
     height: $h-height;
@@ -39,5 +40,99 @@
         cursor: pointer;
         background-size: 20px 20px;
         background-position-x: 5px;
+    }
+
+    &__autocomplete {
+        position: absolute;
+        display: block;
+        width: $ac-width;
+        top: 100%; right: 0; left: auto;
+        margin: 13px 0 0; padding: 5px 0;
+        list-style: none;
+        z-index: 900;
+        background-clip: padding-box;
+        background-color: $ac-bg-color;
+        box-shadow: $ac-box-shadow;
+        border-radius: 4px;
+        @include clearfix;
+
+        &::before {
+            position: absolute;
+            content: "";
+            width: auto; height: auto;
+            border: 9px solid transparent;
+            border-bottom-color: $ac-bg-color;
+            top: -18px; right: 17px;
+            z-index: 900;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            width: auto; height: auto;
+            border: 10px solid transparent;
+            border-bottom-color: rgba(0, 0, 0, .1);
+            top: -20px; right: 16px;
+            z-index: 800;
+        }
+    }
+}
+
+.CountryAutocomplete {
+    position: relative;
+    display: block;
+    width: 100%;
+    float: left;
+    clear: left;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $ac-bg-color-1;
+    }
+
+    .CountryItem {
+        position: relative;
+        padding: 7px 15px 6px 10px;
+        margin: 0;
+        @include clearfix;
+
+        .CountryFlag {
+            position: absolute;
+            width: 32px; height: 32px;
+            float: left;
+            margin-right: 10px;
+            border-radius: 50%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
+        .CountryInfo {
+            width: 100%; height: 32px;
+            float: left;
+        }
+
+        .CountryName, .CountryCapital {
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding-left: 42px;
+        }
+
+        .CountryName {
+            margin-top: 0;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 15px;
+            color: $ac-country-name-color;
+        }
+        
+        .CountryCapital {
+            font-size: 12px;
+            line-height: 16px;
+            color: $ac-country-capital-color;
+        }
     }
 }

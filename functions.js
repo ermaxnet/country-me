@@ -55,7 +55,30 @@ const getCountryCode = ip => {
     );
 };
 
+const throttle = (action, timeout) => {
+    let isThrottled = false,
+        args, context;
+    function wrapper() {
+        if(isThrottled) {
+            args = arguments;
+            context = this;
+            return;
+        }
+        action.apply(this, arguments);
+        isThrottled = true;
+        setTimeout(() => {
+            isThrottled = false;
+            if(args) {
+                wrapper.apply(context, args);
+                args = context = null;
+            }
+        }, timeout);
+    }
+    return wrapper;
+};
+
 module.exports = {
     request,
-    getCountryCode
+    getCountryCode,
+    throttle
 };

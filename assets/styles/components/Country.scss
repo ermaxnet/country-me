@@ -1,0 +1,101 @@
+@import "../theme";
+@import "~bourbon/core/bourbon";
+
+.CountryComponent {
+    background-color: $c-bg-color;
+}
+
+.Country {
+    position: relative;
+    @include clearfix;
+
+    .CountryMap {
+        display: block;
+        width: 100%; height: $c-map-height;
+        margin: 0;
+        background-color: $c-map-bg-color;
+    }
+
+    .CountryInfo {
+        position: relative;
+        min-height: 42px;
+
+        .CountryFlag__container {
+            position: absolute;
+            display: inline-block;
+            margin: 0;
+            left: 8px; top: -30px;
+            border-radius: 50%;
+        }
+
+        .CountryInfo__container {
+            position: relative;
+            width: 100%;
+            padding-left: 90px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+    }
+
+    .CountryFlag {
+        display: block;
+        width: 72px; height: 72px;
+        border: 2px solid $c-bg-color;
+        box-sizing: border-box;
+        border-radius: 50%;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .CountryName, .CountryCapital {
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .CountryName {
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 25px;
+    }
+
+    .CountryCapital {
+        font-size: 14px;
+        color: $c-capital-color;
+        line-height: 20px;
+    }
+
+    .CountryShortInfo {
+        position: relative;
+        padding: 16px;
+        margin: 0;
+
+        &__key {
+            font-size: 12px;
+            line-height: 16px;
+            color: $c-cshi-key-color;
+        }
+
+        &__value {
+            font-size: 14px;
+            line-height: 17px;
+            margin: 0 0 10px;
+            font-weight: bold;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.CountryRegionalBloc {
+    display: block;
+    color: $c-cshi-rb-color;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 17px;
+}

@@ -35,4 +35,12 @@ const CountrySchema = new Schema({
         }
     ]
 });
+CountrySchema.index({ name: "text", capital: "text" }, {
+    weights: {
+        name: 20,
+        capital: 10
+    },
+    name: "CountryTextIndex",
+    textIndexVersion: 3
+});
 module.exports = CountrySchema;

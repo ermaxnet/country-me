@@ -6,6 +6,10 @@ body {
     position: relative;
     overflow-y: scroll;
     background-color: $bg-color;
+
+    @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 2dppx) {
+        -webkit-font-smoothing: antialiased;
+    }
 }
 
 .page {
@@ -13,9 +17,10 @@ body {
 
     .container {
         position: relative;
-        padding: 56px 0;
+        padding: calc(#{$h-height} + 10px) 15px;
         width: $width; min-height: 0;
         margin: 0 auto;
+        @include clearfix;
 
         @include media-desktop-up {
             width: $width-1;
@@ -59,4 +64,31 @@ body {
 
 .logo {
     background-image: url("~logo.svg");
+}
+
+.content-30 {
+    float: left;
+    width: $content-30-width;
+
+    @include media-desktop-up {
+        width: $content-30-width-1;
+    }
+}
+
+.content-70 {
+    float: right;
+    width: $content-70-width;
+
+    @include media-desktop-up {
+        width: $content-70-width-1;
+    }
+}
+
+.content {
+    position: relative;
+    margin-bottom: 10px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
 }

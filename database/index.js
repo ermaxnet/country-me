@@ -5,7 +5,8 @@ const Country = mongoose.model("Country", CountrySchema);
 
 function mongooseConnect(connectionString) {
     return mongoose.connect(connectionString, { 
-        useNewUrlParser: true 
+        useNewUrlParser: true,
+        autoIndex: false
     });
 };
 

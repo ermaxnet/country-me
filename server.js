@@ -14,11 +14,15 @@ mongooseConnect(process.env.MONGODB_URI)
         if(exists) {
             return Promise.resolve();
         }
-        return request("https://restcountries.eu/rest/v2/all", { 
-            fields: "name;capital;region;subregion;population;area;flag;regionalBlocs;latlng;alpha2Code;alpha3Code" 
-        }).then(countries => {
-            return Country.insertMany(countries);
-        });
+        Country.createIndexes()
+            .then(() => {
+                return request("https://restcountries.eu/rest/v2/all", { 
+                    fields: "name;capital;region;subregion;population;area;flag;regionalBlocs;latlng;alpha2Code;alpha3Code" 
+                });
+            })
+            .then(countries => {
+                return Country.insertMany(countries);
+            });
     })
     .then(() => {
         require("http").createServer(app).listen(

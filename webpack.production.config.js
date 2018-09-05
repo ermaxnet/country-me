@@ -51,8 +51,11 @@ const css_loaders = [
 module.exports = {
     bail: true,
     entry: [
+        require.resolve("./assets/scripts/polyfills.js"),
+        require.resolve("webpack-hot-middleware/client"),
         "./assets/scripts/main.js",
-        "./assets/scripts/components/Search.js"
+        "./assets/scripts/components/Search.js",
+        "./assets/scripts/components/Country.js"
     ],
     output: {
         path: path.resolve(__dirname, "public"),

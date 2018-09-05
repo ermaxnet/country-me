@@ -22,11 +22,18 @@
     "bourbon": "^5.1.0",
     "express": "^4.16.3",
     "i18next": "^11.6.0",
-    "mongoose": "^5.2.12",
+    "immutable": "^4.0.0-rc.9",
+    "mongoose": "^5.2.13",
     "normalize.css": "^8.0.0",
+    "object-assign": "^4.1.1",
+    "promise": "^8.0.1",
     "pug": "^2.0.3",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-number-format": "^3.5.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
