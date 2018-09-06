@@ -55,6 +55,13 @@ const getCountryCode = ip => {
     );
 };
 
+const getCountryWeather = (lat, lng) => {
+    return request(`${process.env.DARK_SKY_API_URI}/${process.env.DARK_SKY_API_KEY}/${lat},${lng}`, {
+        exclude: "minutely,hourly,daily,alerts,flags",
+        units: "ca"
+    });
+};
+
 const throttle = (action, timeout) => {
     let isThrottled = false,
         args, context;
@@ -80,5 +87,6 @@ const throttle = (action, timeout) => {
 module.exports = {
     request,
     getCountryCode,
+    getCountryWeather,
     throttle
 };

@@ -10,8 +10,15 @@
                 "population": "Population",
                 "area": "Area",
                 "blocs": "Regional Blocs",
-                "coordinates": "Coordinates"
-            }
+                "coordinates": "Coordinates of the capital"
+            },
+            "weather_in": "Weather in",
+            "weather_info": {
+                "precip_probability": "Probability of precipitation",
+                "humidity": "Humidity",
+                "windSpeed": "Wind speed"
+            },
+            "km_p_h": "km/h"
         }
     }
 }

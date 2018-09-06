@@ -52,7 +52,8 @@ module.exports = {
         require.resolve("webpack-hot-middleware/client"),
         "./assets/scripts/main.js",
         "./assets/scripts/components/Search.js",
-        "./assets/scripts/components/Country.js"
+        "./assets/scripts/components/Country.js",
+        "./assets/scripts/components/Weather.js"
     ],
     output: {
         path: path.resolve(__dirname, "public"),
@@ -130,13 +131,18 @@ module.exports = {
         new CopyWebpackPlugin([
             { from: "assets/images/favicon.ico", to: "media/favicon.ico" },
             { from: "assets/images/favicon.svg", to: "media/favicon.svg" },
-            { from: "assets/images/apple-touch-icon.png", to: "media/apple-touch-icon.png" }
+            { from: "assets/images/apple-touch-icon.png", to: "media/apple-touch-icon.png" },
+            { from: "assets/images/icons/weather.svg", to: "media/icons/weather.svg" }
         ]),
         new ImageMinWebpackPlugin({
             test: /\.svg$/,
             svgo: {
                 plugins: [
-                    { removeTitle: true }
+                    { removeTitle: true },
+                    { removeUselessDefs: false },
+                    { cleanupIDs: {
+                        remove: false
+                    } }
                 ]
             }
         }),
@@ -184,7 +190,14 @@ module.exports = {
             inject: false
         }),
         new HtmlWebpackPugPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.DefinePlugin({
+            "process.env": Object.keys(process.env).filter(key => /^CLIENT_APP_/i.test(key)).reduce((vars, key) => {
+                vars[key] = JSON.stringify(process.env[key]);
+                return vars;
+            }, {})
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     devtool: "cheap-source-map",
     performance: {

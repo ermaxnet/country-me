@@ -1,4 +1,4 @@
-const { getCountryCode } = require("../functions");
+const { getCountryCode, getCountryWeather } = require("../functions");
 const { Country } = require("../database");
 
 module.exports = function(router) {
@@ -46,6 +46,13 @@ module.exports = function(router) {
         ]).then(countries => {
             res.json(countries);
         });
+    });
+
+    router.get("/weather", (req, res, next) => {
+        getCountryWeather(req.query.lat, req.query.lng)
+            .then(weather => {
+                return res.status(201).json(weather);
+            });
     });
 
     return router;

@@ -18,6 +18,19 @@ export const setCountry = country => {
     };
 };
 
+export const getCountryWeather = () => {
+    return {
+        type: REDUX_ACTION.GET_COUNTRY_WEATHER_REQUEST
+    };
+};
+
+export const setCountryWeather = weather => {
+    return {
+        type: REDUX_ACTION.GET_COUNTRY_WEATHER_SUCCESS,
+        weather
+    }
+};
+
 const CountryState = Record({
     isFetching: false,
     model: null
@@ -29,16 +42,39 @@ const countryReducer = (state = new CountryState(), action) => {
             return state.set("isFetching", true);
         }
         case REDUX_ACTION.GET_COUNTRY_SUCCESS: {
+            const hasCoords = !!(action.country.latlng && action.country.latlng.length === 2);
             return state
                 .set("isFetching", false)
-                .set("model", action.country);
+                .set("model", action.country)
+                .setIn([ "model", "hasCoords" ], hasCoords);
+        }
+    }
+    return state;
+};
+
+const WeatherState = Record({
+    done: false,
+    model: null
+});
+
+const weatherReducer = (state = new WeatherState(), action) => {
+    switch(action.type) {
+        case REDUX_ACTION.GET_COUNTRY_REQUEST:
+        case REDUX_ACTION.GET_COUNTRY_WEATHER_REQUEST: {
+            return state.set("done", false);
+        }
+        case REDUX_ACTION.GET_COUNTRY_WEATHER_SUCCESS: {
+            return state
+                .set("done", true)
+                .set("model", action.weather);
         }
     }
     return state;
 };
 
 const reducer = combineReducers({
-    country: countryReducer
+    country: countryReducer,
+    weather: weatherReducer
 });
 
 const store = createStore(reducer);

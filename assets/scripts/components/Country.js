@@ -6,6 +6,7 @@ import {
     requestCountry
 } from "../models/country";
 import ReactNumber from "react-number-format";
+import CountryCapitalMap from "./GoogleMap";
 import "components/Country.scss";
 import locale from "../../../locales";
 
@@ -14,17 +15,25 @@ class CountryComponent extends ReactComponent {
         requestCountry();
     }
     render() {
-        if(this.props.isFetching) {
-            return <span>Loading...</span>;
-        }
-        const { country } = this.props;
-        if(country === null) {
+        const { isFetching, country  } = this.props;
+        if(isFetching || country === null) {
             return null;
         }
-        console.log(country);
+        const { hasCoords } = country;
         return (
             <div className="Country">
-                <figure className="CountryMap"></figure>
+                {hasCoords && (
+                    <CountryCapitalMap 
+                        lat={country.latlng[0]}
+                        lng={country.latlng[1]}
+                        code={country.alpha2Code}
+                        name={country.name}
+                        capital={country.capital}
+                        containerElement={<figure className="CountryMap"></figure>}
+                        loadingElement={<div style={{ height: "100%" }} />}
+                        mapElement={<div style={{ height: "100%" }} />}
+                    />
+                )}
                 <div className="CountryInfo">
                     <figure className="CountryFlag__container">
                         <img 
@@ -45,7 +54,7 @@ class CountryComponent extends ReactComponent {
                             <dd className="CountryShortInfo__value">{country.region} &middot; {country.subregion}</dd>
                         </>
                     )}
-                    {!!(country.latlng && country.latlng.length === 2) && (
+                    {hasCoords && (
                         <>
                             <dt className="CountryShortInfo__key">{locale.t("short_info.coordinates")}</dt>
                             <dd className="CountryShortInfo__value">{country.latlng[0]} &deg; {country.latlng[1]} &deg;</dd>

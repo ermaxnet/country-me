@@ -1,0 +1,85 @@
+@import "../theme";
+@import "~bourbon/core/bourbon";
+
+.WeatherComponent {
+    background-color: $w-bg-color;
+}
+
+.CountryWeater {
+    position: relative;
+    padding: 16px;
+
+    &__header {
+        line-height: 20px;
+        margin-bottom: 10px;
+    }
+
+    .WeaterPlace {
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 22px;
+        margin: 0;
+        text-rendering: optimizeLegibility;
+    }
+
+    .WeaterTime {
+        font-size: 12px;
+        line-height: 14px;
+        color: $w-time-color;
+    }
+
+    .Weater {
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+
+        .WeaterIcon, .WeatherDegree {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .WeaterIcon {
+            width: 64px; height: 64px;
+            margin-left: -15px;
+            fill: $w-icon-fill;
+        }
+
+        .WeatherDegree {
+            width: 64px; height: 64px;;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 60px;
+
+            .WeatherDegreeType {
+                display: inline-block;
+                font-size: 14px;
+                line-height: 1;
+                color: $w-degree-color;
+                vertical-align: top;
+                margin: 15px 0 0 5px;
+            }
+        }
+    }
+
+    .WeatherInfo {
+        position: relative;
+        margin: 0;
+
+        &__key {
+            font-size: 12px;
+            line-height: 16px;
+            color: $c-cshi-key-color;
+        }
+
+        &__value {
+            font-size: 14px;
+            line-height: 17px;
+            margin: 0 0 10px;
+            font-weight: bold;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

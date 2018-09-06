@@ -1,6 +1,8 @@
 import store, {
     getCountry,
-    setCountry
+    setCountry,
+    getCountryWeather,
+    setCountryWeather
 } from "../store";
 
 export const requestCountry = (country_code = null) => {
@@ -13,12 +15,21 @@ export const requestCountry = (country_code = null) => {
             });
     }
     return fetch("/api/get-my-country", {
-        // headers: {
-        //     "x-forwarded-for": "178.121.211.243"
-        // }
+        headers: {
+            "x-forwarded-for": "178.121.211.243"
+        }
     })
         .then(response => response.json())
         .then(country => {
             store.dispatch(setCountry(country));
+        });
+};
+
+export const requestWeather = (lat, lng) => {
+    store.dispatch(getCountryWeather());
+    return fetch(`/api/weather?lat=${lat}&lng=${lng}`)
+        .then(response => response.json())
+        .then(({ currently }) => {
+            store.dispatch(setCountryWeather(currently));
         });
 };
