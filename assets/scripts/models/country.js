@@ -2,7 +2,9 @@ import store, {
     getCountry,
     setCountry,
     getCountryWeather,
-    setCountryWeather
+    setCountryWeather,
+    getCountryPhotos,
+    setCountryPhotos
 } from "../store";
 
 export const requestCountry = (country_code = null) => {
@@ -15,9 +17,9 @@ export const requestCountry = (country_code = null) => {
             });
     }
     return fetch("/api/get-my-country", {
-        headers: {
-            "x-forwarded-for": "178.121.211.243"
-        }
+        // headers: {
+        //     "x-forwarded-for": "178.121.211.243"
+        // }
     })
         .then(response => response.json())
         .then(country => {
@@ -31,5 +33,14 @@ export const requestWeather = (lat, lng) => {
         .then(response => response.json())
         .then(({ currently }) => {
             store.dispatch(setCountryWeather(currently));
+        });
+};
+
+export const requestPhotos = (name, capital) => {
+    store.dispatch(getCountryPhotos());
+    return fetch(`/api/get-country-photos?name=${name}&capital=${capital}`)
+        .then(response => response.json())
+        .then((photos) => {
+            store.dispatch(setCountryPhotos(photos));
         });
 };

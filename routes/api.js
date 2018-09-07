@@ -1,4 +1,8 @@
-const { getCountryCode, getCountryWeather } = require("../functions");
+const { 
+    getCountryCode, 
+    getCountryWeather, 
+    getCountryPhotos 
+} = require("../functions");
 const { Country } = require("../database");
 
 module.exports = function(router) {
@@ -52,6 +56,13 @@ module.exports = function(router) {
         getCountryWeather(req.query.lat, req.query.lng)
             .then(weather => {
                 return res.status(201).json(weather);
+            });
+    });
+
+    router.get("/get-country-photos", (req, res, next) => {
+        getCountryPhotos(req.query.name, req.query.capital)
+            .then(({ photos: { photo: photos } }) => {
+                return res.status(201).json(photos);
             });
     });
 

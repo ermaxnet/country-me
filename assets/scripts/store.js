@@ -28,7 +28,20 @@ export const setCountryWeather = weather => {
     return {
         type: REDUX_ACTION.GET_COUNTRY_WEATHER_SUCCESS,
         weather
-    }
+    };
+};
+
+export const getCountryPhotos = () => {
+    return {
+        type: REDUX_ACTION.GET_COUNTRY_PHOTOS_REQUEST
+    };
+}
+
+export const setCountryPhotos = (photos) => {
+    return {
+        type: REDUX_ACTION.GET_COUNTRY_PHOTOS_SUCCESS,
+        photos
+    };
 };
 
 const CountryState = Record({
@@ -72,9 +85,32 @@ const weatherReducer = (state = new WeatherState(), action) => {
     return state;
 };
 
+const PhotosState = Record({
+    done: false,
+    items: null
+});
+
+const photosReducer = (state = new PhotosState(), action) => {
+    switch(action.type) {
+        case REDUX_ACTION.GET_COUNTRY_REQUEST:
+        case REDUX_ACTION.GET_COUNTRY_PHOTOS_REQUEST: {
+            return state
+                .set("done", false)
+                .set("items", null);
+        }
+        case REDUX_ACTION.GET_COUNTRY_PHOTOS_SUCCESS: {
+            return state
+                .set("done", true)
+                .set("items", action.photos);
+        }
+    }
+    return state;
+};
+
 const reducer = combineReducers({
     country: countryReducer,
-    weather: weatherReducer
+    weather: weatherReducer,
+    photos: photosReducer
 });
 
 const store = createStore(reducer);

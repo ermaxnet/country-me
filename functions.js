@@ -62,6 +62,27 @@ const getCountryWeather = (lat, lng) => {
     });
 };
 
+const getCountryPhotos = (name, capital = null) => {
+    let tags = name;
+    const options = {
+        method: "flickr.photos.search",
+        api_key: process.env.FLICKR_API_KEY,
+        per_page: 20,
+        page: 1,
+        content_type: 1,
+        format: "json",
+        nojsoncallback: 1,
+        accuracy: 5,
+        has_geo: 1,
+        extras: "description,date_upload,owner_name,views,icon_server,icon_farm"
+    };
+    if(capital) {
+        tags += "," + capital;
+    }
+    options.tags = tags;
+    return request(`${process.env.FLICKR_API_URI}`, options);
+};
+
 const throttle = (action, timeout) => {
     let isThrottled = false,
         args, context;
@@ -88,5 +109,6 @@ module.exports = {
     request,
     getCountryCode,
     getCountryWeather,
+    getCountryPhotos,
     throttle
 };

@@ -18,7 +18,8 @@
                 "humidity": "Humidity",
                 "windSpeed": "Wind speed"
             },
-            "km_p_h": "km/h"
+            "km_p_h": "km/h",
+            "views": "Views"
         }
     }
 }

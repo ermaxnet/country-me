@@ -18,7 +18,6 @@ class WeatherComponent extends ReactComponent {
     render() {
         const { 
             isFetching, 
-            coordinates, 
             capital, 
             hasCoords,
             weather: {

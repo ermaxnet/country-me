@@ -53,7 +53,8 @@ module.exports = {
         "./assets/scripts/main.js",
         "./assets/scripts/components/Search.js",
         "./assets/scripts/components/Country.js",
-        "./assets/scripts/components/Weather.js"
+        "./assets/scripts/components/Weather.js",
+        "./assets/scripts/components/Photos.js"
     ],
     output: {
         path: path.resolve(__dirname, "public"),
