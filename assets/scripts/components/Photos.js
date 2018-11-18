@@ -9,7 +9,7 @@ import "components/Photos.scss";
 
 class PhotosComponent extends ReactComponent {
     componentWillReceiveProps(props) {
-        if(props.photos.done || props.isFetching) {
+        if(props.error || props.photos.done || props.isFetching) {
             return;
         }
         const { name, capital } = props;
@@ -18,8 +18,12 @@ class PhotosComponent extends ReactComponent {
     render() {
         const { 
             isFetching,
-            photos: { items: photos }
+            photos: { items: photos },
+            error
         } = this.props;
+        if(error) {
+            return null;
+        }
         if(isFetching) {
             return <Loader />
         }
@@ -37,6 +41,7 @@ class PhotosComponent extends ReactComponent {
 };
 
 const mapStateToProps = state => ({
+    error: state.exception.get("error"),
     isFetching: state.country.get("isFetching"),
     name: state.country.getIn([ "model", "name" ]),
     capital: state.country.getIn([ "model", "capital" ]),

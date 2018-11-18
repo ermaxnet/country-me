@@ -18,9 +18,15 @@ body {
     .container {
         position: relative;
         padding: calc(#{$h-height} + 10px) 15px;
-        width: $width; min-height: 0;
+        width: 100%; min-height: 0; min-width: $min-width;
+        box-sizing: border-box;
         margin: 0 auto;
         @include clearfix;
+
+        @include media-tablet-landscape-up {
+            box-sizing: content-box;
+            width: $width; min-width: 0;
+        }
 
         @include media-desktop-up {
             width: $width-1;
@@ -46,8 +52,16 @@ body {
 
     .container {
         position: relative;
-        width: $width; height: $h-height;
+        width: 100%; height: $h-height; min-width: $min-width;
+        padding: 0 15px;
+        box-sizing: border-box;
         margin: 0 auto;
+
+        @include media-tablet-landscape-up {
+            width: $width; min-width: 0;
+            padding: 0;
+            box-sizing: content-box;
+        }
 
         @include media-desktop-up {
             width: $width-1;
@@ -55,10 +69,14 @@ body {
     }
 
     .logo {
-        width: 204px; height: 36px;
+        width: 36px; height: 36px;
         background-size: 204px 36px;
         float: left;
         margin-top: 10px;
+
+        @media (min-width: 480px) {
+            width: 204px;
+        }
     }
 }
 
@@ -67,8 +85,11 @@ body {
 }
 
 .content-30 {
-    float: left;
-    width: $content-30-width;
+
+    @include media-tablet-landscape-up {
+        float: left;
+        width: $content-30-width;
+    }
 
     @include media-desktop-up {
         width: $content-30-width-1;
@@ -76,8 +97,11 @@ body {
 }
 
 .content-70 {
-    float: right;
-    width: $content-70-width;
+    
+    @include media-tablet-landscape-up {
+        float: right;
+        width: $content-70-width;
+    }
 
     @include media-desktop-up {
         width: $content-70-width-1;
@@ -91,4 +115,14 @@ body {
     &:last-of-type {
         margin-bottom: 0;
     }
+}
+
+.Exception {
+    position: relative;
+    width: 100%;
+    padding-top: 100px;
+    text-align: center;
+    font-size: 36px;
+    line-height: 112px;
+    color: $error-color;
 }

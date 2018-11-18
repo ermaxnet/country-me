@@ -44,6 +44,12 @@ export const setCountryPhotos = (photos) => {
     };
 };
 
+export const setErrorState = () => {
+    return {
+        type: REDUX_ACTION.SET_COUNTRY_ERROR_STATE
+    };
+};
+
 const CountryState = Record({
     isFetching: false,
     model: null
@@ -107,10 +113,24 @@ const photosReducer = (state = new PhotosState(), action) => {
     return state;
 };
 
+const ExceptionState = Record({
+    error: false
+});
+
+const exceptionReducer = (state =  new ExceptionState(), action) => {
+    switch(action.type) {
+        case REDUX_ACTION.SET_COUNTRY_ERROR_STATE: {
+            return state.set("error", true);
+        }
+    }
+    return state;
+};
+
 const reducer = combineReducers({
     country: countryReducer,
     weather: weatherReducer,
-    photos: photosReducer
+    photos: photosReducer,
+    exception: exceptionReducer
 });
 
 const store = createStore(reducer);

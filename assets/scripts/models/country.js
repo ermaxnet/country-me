@@ -1,11 +1,27 @@
+import React from "react";
+import { NotificationManager } from "react-notifications";
 import store, {
     getCountry,
     setCountry,
     getCountryWeather,
     setCountryWeather,
     getCountryPhotos,
-    setCountryPhotos
+    setCountryPhotos,
+    setErrorState
 } from "../store";
+import locale from "../../../locales";
+
+const processCountryApiResponse = response => {
+    if (response.ok) {
+        return response.json();
+    }
+    throw new Error(locale.t("Common API Exception"));
+};
+
+const showErrorNotification = message => {
+    store.dispatch(setErrorState());
+    return NotificationManager.error(message, locale.t("Bad response"), 5000);
+};
 
 export const requestCountry = (country_code = null) => {
     store.dispatch(getCountry());
@@ -17,14 +33,15 @@ export const requestCountry = (country_code = null) => {
             });
     }
     return fetch("/api/get-my-country", {
-        // headers: {
-        //     "x-forwarded-for": "178.121.211.243"
-        // }
+        /* headers: {
+            "x-forwarded-for": "178.121.219.20"
+        } */
     })
-        .then(response => response.json())
+        .then(response => processCountryApiResponse(response))
         .then(country => {
             store.dispatch(setCountry(country));
-        });
+        })
+        .catch(err => showErrorNotification(err.message));
 };
 
 export const requestWeather = (lat, lng) => {

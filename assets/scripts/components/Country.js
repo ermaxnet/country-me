@@ -6,8 +6,10 @@ import {
     requestCountry
 } from "../models/country";
 import ReactNumber from "react-number-format";
+import { NotificationContainer } from "react-notifications";
 import CountryCapitalMap from "./GoogleMap";
 import "components/Country.scss";
+import "react-notifications/lib/notifications.css";
 import locale from "../../../locales";
 
 class CountryComponent extends ReactComponent {
@@ -15,8 +17,8 @@ class CountryComponent extends ReactComponent {
         requestCountry();
     }
     render() {
-        const { isFetching, country  } = this.props;
-        if(isFetching || country === null) {
+        const { isFetching, country, error } = this.props;
+        if(error || isFetching || country === null) {
             return null;
         }
         const { hasCoords } = country;
@@ -109,7 +111,8 @@ class CountryComponent extends ReactComponent {
 
 const mapStateToProps = state => ({
     isFetching: state.country.get("isFetching"),
-    country: state.country.get("model")
+    country: state.country.get("model"),
+    error: state.exception.get("error")
 });
 
 const CountryReduxComponent = connect(
@@ -121,4 +124,31 @@ ReactDOM.render(
         <CountryReduxComponent />
     </Provider>,
     document.getElementById("country")
+);
+
+ReactDOM.render(
+    <NotificationContainer />,
+    document.getElementById("notifications")
+);
+
+const ExceptionComponent = ({ error })=> {
+    if(error) {
+        return (
+            <div className="Exception">
+                <span>Sorry...</span>
+            </div>
+        );
+    }
+    return null;
+};
+
+const ExceptionReduxComponent = connect(
+    mapStateToProps
+)(ExceptionComponent);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ExceptionReduxComponent />
+    </Provider>,
+    document.getElementById("exception")
 );

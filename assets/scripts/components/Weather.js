@@ -9,7 +9,7 @@ import locale from "../../../locales";
 
 class WeatherComponent extends ReactComponent {
     componentWillReceiveProps(props) {
-        if(props.weather.done || props.isFetching || !props.hasCoords) {
+        if(props.error || props.weather.done || props.isFetching || !props.hasCoords) {
             return;
         }
         const [ lat, lng ] = props.coordinates;
@@ -22,9 +22,10 @@ class WeatherComponent extends ReactComponent {
             hasCoords,
             weather: {
                 model: weather
-            }
+            },
+            error
         } = this.props;
-        if(isFetching || !hasCoords || weather === null) {
+        if(error || isFetching || !hasCoords || weather === null) {
             return null;
         }
         const time = moment(Date.now());
@@ -82,6 +83,7 @@ class WeatherComponent extends ReactComponent {
 }
 
 const mapStateToProps = state => ({
+    error: state.exception.get("error"),
     isFetching: state.country.get("isFetching"),
     coordinates: state.country.getIn([ "model", "latlng" ]),
     capital: state.country.getIn([ "model", "capital" ]),
